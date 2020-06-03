@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-class Game extends Component {
-  /*
-  The constructor is a "special method for creating and initializing an object."
-  (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
-  Whenever an object is created with a `class`, the constructor is the first
-  thing that runs.
-  */
+export default class Game extends Component {
   constructor(props) {
     super(props);
     const valuesArray = this.makeNewQuestion();
@@ -22,12 +16,13 @@ class Game extends Component {
     const value1 = Math.floor(Math.random() * 100);
     const value2 = Math.floor(Math.random() * 100);
     const value3 = Math.floor(Math.random() * 100);
-    const proposedAnswer = Math.floor(Math.random() * 3) + (value1 + value2 + value3);
+    const proposedAnswer =
+      Math.floor(Math.random() * 3) + (value1 + value2 + value3);
     return [value1, value2, value3, proposedAnswer];
   };
 
-  updateState = newValuesArray => {
-    this.setState(currState => ({
+  updateState = (newValuesArray) => {
+    this.setState((currState) => ({
       value1: newValuesArray[0],
       value2: newValuesArray[1],
       value3: newValuesArray[2],
@@ -35,7 +30,7 @@ class Game extends Component {
     }));
   };
 
-  handleAnswer = event => {
+  handleAnswer = (event) => {
     const newValuesArray = this.makeNewQuestion();
     this.updateState(newValuesArray);
     const answerWasCorrect = this.evaluateAnswer(event.target.name);
@@ -47,25 +42,19 @@ class Game extends Component {
     const corrAnswer = value1 + value2 + value3;
 
     return (
-      (corrAnswer === proposedAnswer && givenAnswer === 'true') ||
-      (corrAnswer !== proposedAnswer && givenAnswer === 'false')
+      (corrAnswer === proposedAnswer && givenAnswer === "true") ||
+      (corrAnswer !== proposedAnswer && givenAnswer === "false")
     );
   }
 
-  /*
-  The render method gets called automatically every time the state inside
-  of the component changes and anytime the component's props change
-  (more accurately, anytime React perceives that those props have changed,
-  regardless of whether they are actually different (e.g. binding `this` inside
-  of the render method causes React to think that the props are different).
-  */
   render() {
     const { value1, value2, value3, proposedAnswer } = this.state;
     return (
-      // without this '(', JS will automatically put a ';' after 'return.'
       <div>
         <div className="equation">
-          <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
+          <p className="text">
+            {`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}
+          </p>
         </div>
         <button onClick={this.handleAnswer} name="true">
           True
@@ -77,5 +66,3 @@ class Game extends Component {
     );
   }
 }
-
-export default Game;
